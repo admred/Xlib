@@ -29,7 +29,7 @@ void create_window() {
     assert(display != NULL);
 
     window=XCreateSimpleWindow(display ,RootWindow(display,screen_num),x,y,WIDTH,HEIGHT,border_width,border,black);
-    assert(display != 0);
+    assert(window != 0);
 
     /* thanks: https://stackoverflow.com/questions/1157364/intercept-wm-delete-window-on-x11 */
     wm_delete_window=XInternAtom(display,"WM_DELETE_WINDOW",False);
