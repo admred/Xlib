@@ -53,11 +53,6 @@ void destroy_window(){
     }
 }
 
-/* TODO: here is when are proccesed all events */
-void mainloop(){
-
-    sleep(3); /* wait 3 secs */
-}
 
 int  load_png(char *fname,char **buf,int *width,int  *height)
 {
@@ -137,10 +132,11 @@ int  load_png(char *fname,char **buf,int *width,int  *height)
     return False;
 }
 
-void draw_image(char *path,char *buf){
+void draw_image(char *path){
     int width;
     int height;
     int err;
+    char *buf;
     XImage *ximage;
 
     err=load_png(path,&buf,&width,&height);
@@ -151,16 +147,17 @@ void draw_image(char *path,char *buf){
 
     XPutImage(display,window,DefaultGC(display,screen_num),ximage,0,0,0,0,width,height);
 
-    XDestroyImage(ximage);
+    /*  https://www.gamedev.net/forums/topic/206183-x11---xdestroyimage-problem/ */
+    //XDestroyImage(ximage);  // crash
+
+    XFree(ximage);  
+    free((void*)buf);
 }
 
 int main(){
-    char *buf=NULL;
     create_window();
-    draw_image(FILENAME,buf);
+    draw_image(FILENAME);
     sleep(3);  /* wait 3 secs */
     destroy_window();
-    if(buf != NULL)
-        free((void*)buf);
     return 0;
 }
