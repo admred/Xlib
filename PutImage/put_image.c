@@ -115,7 +115,7 @@ int  load_png(char *fname,char **buf,int *width,int  *height)
 
 	*width=png_get_image_width(png_ptr,info_ptr);
 	*height=png_get_image_height(png_ptr,info_ptr);
-	*buf=(char*)malloc((*width)*(*height)*sizeof(int));
+	*buf=(char*)malloc((*width)*(*height)*sizeof(uint32_t));
 	
 	row=(char*)malloc((*width)*4);
 	
